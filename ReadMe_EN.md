@@ -109,7 +109,7 @@ The following is the code that has been completely modified/used
 
 \LibFewShot\core\model\meta\DynamicWeights.py          ---加入DynamicWeights.py但未完全实现
 
-### TBD
+### Todo
 
 model `DynamicWeightsModel`
 

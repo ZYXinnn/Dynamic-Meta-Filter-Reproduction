@@ -109,7 +109,7 @@ pip install -r '\your_path\LibFewShot\requirements.txt'
 
 \LibFewShot\core\model\meta\DynamicWeights.py          ---加入DynamicWeights.py但未完全实现
 
-### TBD
+### Todo
 
 model `DynamicWeightsModel`
 
