@@ -42,5 +42,5 @@ train_episode: 100
 test_episode: 100
 
 # general model setting
-batch_size: 128
-val_per_epoch: 1
+batch_size: 4
+val_per_epoch: 2000

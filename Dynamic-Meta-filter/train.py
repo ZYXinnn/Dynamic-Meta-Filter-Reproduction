@@ -62,6 +62,7 @@ def main():
         
     print('Initializing image data manager')
 # end_use ************************************************************
+# 这里有数据集增强，仍未完全调用
     dm = DataManager(args, use_gpu)
     trainloader, testloader = dm.return_dataloaders()
 
@@ -82,13 +83,12 @@ def main():
     warmup_epoch = 5
     scheduler = warmup_scheduler(base_lr=args.lr, iter_per_epoch=len(trainloader), 
     max_epoch=args.max_epoch + warmup_epoch, multi_step=[], warmup_epoch=warmup_epoch)
-# end_use ************************************************************
 
     for epoch in range(args.max_epoch + warmup_epoch):
         start_train_time = time.time()
         train(epoch, model, criterion, optimizer, trainloader, scheduler, use_gpu)
         train_time += round(time.time() - start_train_time)
-        
+# end_use ************************************************************
         if epoch == 0 or epoch > (args.stepsize[0]-1) or (epoch + 1) % 10 == 0:
             acc = test(model, testloader, use_gpu)
             is_best = acc > best_acc
