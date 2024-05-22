@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # [Dynamic-Meta-Filter-Reproduction](https://github.com/ZYXinnn/Dynamic-Meta-Filter-Reproduction)
 
 ## Getting Started
