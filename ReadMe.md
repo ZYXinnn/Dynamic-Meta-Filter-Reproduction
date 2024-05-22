@@ -101,8 +101,24 @@ pip install -r '\your_path\LibFewShot\requirements.txt'
 
 5.22
 
-\LibFewShot\config\headers\optimizer.yaml
+\LibFewShot\config\headers\optimizer.yaml          ---warmup未引用
 
 \Dynamic-Meta-filter\torchFewShot\optimizers.py
 
+\LibFewShot\config\headers\device.yaml
+
+\LibFewShot\core\model\meta\DynamicWeights.py          ---加入DynamicWeights.py但未完全实现
+
 ### TBD
+
+model `DynamicWeightsModel`
+
+- `set_forward`：用于推理阶段调用，返回分类输出以及准确率。
+- `set_forward_loss`：用于训练阶段调用，返回分类输出、准确率以及前向损失。
+- （`set_forward_adaptation`是微调网络阶段的分类过程所采用的逻辑
+- `sub_optimizer`用于在微调时提供新的局部优化器。）
+
+loss(criterion)
+
+train_loader
+
