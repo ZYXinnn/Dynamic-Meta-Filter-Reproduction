@@ -1,0 +1,50 @@
+# not finished ****************************************************
+
+## optimizer info
+#optimizer:
+#  name: Adam
+#  kwargs:
+#    lr: 0.01
+#  other: ~
+#    # emb_func: 0.001 # define lr OR
+#    # another_part:    # define multi params
+#    #   lr: 0.1
+#    #   weight_decay: 0.5
+#
+#
+## lr_scheduler info
+#lr_scheduler:
+#  name: StepLR
+#  kwargs:
+#    gamma: 1.0
+#    step_size: 20
+#
+#warmup: 0 # set 0 to turn off warmup
+
+
+# optimizer info
+optimizer:
+  name: SGD
+  kwargs:
+    params: model.parameters()
+    lr: 0.35
+    momentum: 0.9
+    weight_decay: 5e-04
+    nesterov: True
+  other: ~
+    # emb_func: 0.001 # define lr OR
+    # another_part:    # define multi params
+    #   lr: 0.1
+    #   weight_decay: 0.5
+
+# lr_scheduler info
+lr_scheduler: 0
+
+warmup: # 0 # set 0 to turn off warmup
+  name: warmup_scheduler # 这个要加
+  kwargs:
+    base_lr: 0.35
+    iter_per_epoch: 100
+    max_epoch: 95
+    warmup_epoch: 5
+    multi_step: []
