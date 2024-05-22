@@ -45,11 +45,6 @@ from tqdm import tqdm
 # end_add ***********************************************************************
 
 def main(rank, config):
-    # add
-    torch.manual_seed(1) # 随机种子，默认为1
-    cudnn.benchmark = True
-    torch.cuda.manual_seed_all(1)
-    # end_add
     trainer = Trainer(rank, config)
     trainer.train_loop(rank)
 

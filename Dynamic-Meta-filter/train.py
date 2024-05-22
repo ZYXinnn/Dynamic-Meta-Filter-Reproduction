@@ -68,8 +68,8 @@ def main():
     model = Model(num_classes=args.num_classes, groups=args.groups, kernel=args.kernel)
     #model = nn.DataParallel(model)
     criterion = CrossEntropyLoss()
+# use ************************************************************
     optimizer = init_optimizer(args.optim, model.parameters(), args.lr, args.weight_decay)
-    
     if use_gpu:
         model = model.cuda()
 
@@ -78,10 +78,11 @@ def main():
     best_acc = -np.inf
     best_epoch = 0
     print("==> Start training")
-    
+
     warmup_epoch = 5
     scheduler = warmup_scheduler(base_lr=args.lr, iter_per_epoch=len(trainloader), 
     max_epoch=args.max_epoch + warmup_epoch, multi_step=[], warmup_epoch=warmup_epoch)
+# end_use ************************************************************
 
     for epoch in range(args.max_epoch + warmup_epoch):
         start_train_time = time.time()

@@ -44,7 +44,8 @@ warmup: # 0 # set 0 to turn off warmup
   name: warmup_scheduler # 这个要加
   kwargs:
     base_lr: 0.35
-    iter_per_epoch: 100
+    iter_per_epoch: 100 # 这个没确定，原值为len(trainloader)
     max_epoch: 95
     warmup_epoch: 5
     multi_step: []
+

@@ -9,9 +9,9 @@ def argument_parser():
     # ************************************************************
     parser.add_argument('-d', '--dataset', type=str, default='miniImageNet_load')
     parser.add_argument('--root', type=str, default='/youtu_action_data/chengmingxu/data/miniImageNet_pickle')
-# use ***********************************************************************
+    # use ***********************************************************************
     parser.add_argument('--suffix', type=str, default=None)
-# end_use ***********************************************************************
+    # end_use ***********************************************************************
     parser.add_argument('--load', default=True)
     parser.add_argument('--cifar', default=False)
     parser.add_argument('--tiered', default=False)
@@ -33,14 +33,13 @@ def argument_parser():
                         help="initial learning rate")
     parser.add_argument('--weight-decay', default=5e-04, type=float,
                         help="weight decay (default: 5e-04)")
-    # end_use *******************************************************************
     parser.add_argument('--max-epoch', default=90, type=int,
                         help="maximum epochs to run")
     parser.add_argument('--start-epoch', default=0, type=int,
                         help="manual epoch number (useful on restarts)")
+    # end_use *******************************************************************
     parser.add_argument('--stepsize', default=[60], nargs='+', type=int,
                         help="stepsize to decay learning rate")
-
     parser.add_argument('--train-batch', default=4, type=int,
                         help="train batch size")
     parser.add_argument('--test-batch', default=4, type=int,
@@ -57,8 +56,9 @@ def argument_parser():
     # Miscs
     # ************************************************************
     parser.add_argument('--save-dir', type=str, default='./weights')
+    # use ***********************************************************************
     parser.add_argument('--gpu-devices', default='2', type=str)
-
+    # end_use *******************************************************************
     # ************************************************************
     # FewShot settting
     # ************************************************************
@@ -78,7 +78,9 @@ def argument_parser():
 
     parser.add_argument('--phase', default='val', type=str,
                         help='use test or val dataset to early stop')
+    # use ***********************************************************************
     parser.add_argument('--seed', type=int, default=1)
+    # end_use *******************************************************************
     parser.add_argument('--resume', type=str, default='./weights/mini/1shot.pth.tar', metavar='PATH')
 
     return parser
