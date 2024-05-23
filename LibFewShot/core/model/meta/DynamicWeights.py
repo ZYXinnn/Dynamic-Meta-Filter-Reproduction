@@ -185,3 +185,48 @@ class DynamicWeightsModel(MetaModel):
 
         global_pred = self.get_global_pred(ftest, ytest, num_test, batch_size, K)
         return global_pred, cls_scores
+
+    def set_forward(self, xtrain, xtest, ytrain, ytest):
+        """
+        Forward pass for the inference phase. Returns classification output and accuracy.
+        """
+        cls_scores = self.forward(xtrain, xtest, ytrain, ytest)
+        ytest_pred = cls_scores.argmax(dim=1)
+        correct = (ytest_pred == ytest).sum().item()
+        accuracy = correct / ytest.size(0)
+        return cls_scores, accuracy
+
+    def set_forward_loss(self, xtrain, xtest, ytrain, ytest):
+        """
+        Forward pass for the training phase. Returns classification output, accuracy, and loss.
+        """
+        global_pred, cls_scores = self.forward(xtrain, xtest, ytrain, ytest)
+        cls_scores = cls_scores.view(-1, cls_scores.size(-1))
+        ytest = ytest.view(-1)
+        loss = F.cross_entropy(cls_scores, ytest)
+        ytest_pred = cls_scores.argmax(dim=1)
+        correct = (ytest_pred == ytest).sum().item()
+        accuracy = correct / ytest.size(0)
+        return cls_scores, accuracy, loss
+
+    def set_forward_adaptation(self, xtrain, xtest, ytrain, ytest):
+        """
+        Forward pass for the adaptation phase. Returns classification output and accuracy.
+        """
+        # Adaptation logic here, e.g., fine-tuning on support set
+        self.train()
+        optimizer = self.sub_optimizer()
+        for _ in range(5):  # Perform a few adaptation steps
+            optimizer.zero_grad()
+            cls_scores, _, loss = self.set_forward_loss(xtrain, xtest, ytrain, ytest)
+            loss.backward()
+            optimizer.step()
+        self.eval()
+        cls_scores, accuracy = self.set_forward(xtrain, xtest, ytrain, ytest)
+        return cls_scores, accuracy
+
+    # def sub_optimizer(self):
+    #     """
+    #     Returns a new optimizer for the adaptation phase.
+    #     """
+    #     return torch.optim.Adam(self.parameters(), lr=0.01, momentum=0.9)

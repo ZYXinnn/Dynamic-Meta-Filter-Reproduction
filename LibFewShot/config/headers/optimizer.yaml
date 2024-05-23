@@ -38,14 +38,15 @@ optimizer:
     #   weight_decay: 0.5
 
 # lr_scheduler info
-lr_scheduler: 0
-
-warmup: # 0 # set 0 to turn off warmup
-  name: warmup_scheduler # 这个要加
+lr_scheduler:
+  name: MultiStepLR
   kwargs:
     base_lr: 0.35
-    iter_per_epoch: 100 # 这个没确定，原值为len(trainloader)
+    # iters_per_epoch: # len(trainloader)?
     max_epoch: 95
+    multi_step: [30, 60, 90]
+    gamma: 0.1
     warmup_epoch: 5
-    multi_step: []
+
+warmup: 1 # set 0 to turn off warmup
 

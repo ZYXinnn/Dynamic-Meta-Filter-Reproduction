@@ -109,16 +109,18 @@ pip install -r '\your_path\LibFewShot\requirements.txt'
 
 \LibFewShot\core\model\meta\DynamicWeights.py          ---加入DynamicWeights.py但未完全实现
 
-### Todo
+5.23
+
+\LibFewShot\config\headers\losses.yaml
 
 model `DynamicWeightsModel`
-
 - `set_forward`：用于推理阶段调用，返回分类输出以及准确率。
 - `set_forward_loss`：用于训练阶段调用，返回分类输出、准确率以及前向损失。
 - （`set_forward_adaptation`是微调网络阶段的分类过程所采用的逻辑
 - `sub_optimizer`用于在微调时提供新的局部优化器。）
 
-loss(criterion)
+完成lr_scheduler以及warmup:MultiStepLR    ---其中iters_per_epoch: # len(trainloader)  未使用
 
+### Todo
 train_loader
 
