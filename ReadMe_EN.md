@@ -109,6 +109,8 @@ The following is the code that has been completely modified/used
 
 \LibFewShot\core\model\meta\DynamicWeights.py          ---加入DynamicWeights.py但未完全实现
 
+5.23
+
 \LibFewShot\config\headers\losses.yaml
 
 model `DynamicWeightsModel`
@@ -120,5 +122,5 @@ model `DynamicWeightsModel`
 完成lr_scheduler以及warmup:MultiStepLR    ---其中iters_per_epoch: # len(trainloader)  未使用
 
 ### Todo
-train_loader
+model存在问题
 

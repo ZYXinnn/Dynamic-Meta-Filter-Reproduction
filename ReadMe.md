@@ -122,5 +122,5 @@ model `DynamicWeightsModel`
 完成lr_scheduler以及warmup:MultiStepLR    ---其中iters_per_epoch: # len(trainloader)  未使用
 
 ### Todo
-train_loader
+model存在问题
 

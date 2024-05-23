@@ -1,113 +1,38 @@
 from __future__ import absolute_import
 from __future__ import division
-import math
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
 from .meta_model import MetaModel
-from ..backbone import resnet12
+from ...resnet_drop import resnet12
 
-import math
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
 
 import torch
-import math
 from torch import nn
 from torch.nn import functional as F
 
-from dconv.layers import DeformConv
+from ...dconv.layers import DeformConv
 from torchdiffeq import odeint as odeint
 
-
-class DynamicWeights_(nn.Module):
-    def __init__(self, channels, dilation=1, kernel=3, groups=1):
-        super(DynamicWeights_, self).__init__()
-        self.softmax = nn.Softmax(dim=-1)
-
-        padding = 1 if kernel == 3 else 0
-        offset_groups = 1
-        self.off_conv = nn.Conv2d(channels * 2, 3 * 3 * 2, 5,
-                                  padding=2, dilation=dilation, bias=False)
-        self.kernel_conv = DeformConv(channels, groups * kernel * kernel,
-                                      kernel_size=3, padding=dilation, dilation=dilation, bias=False)
-
-        self.K = kernel * kernel
-        self.group = groups
-
-    def forward(self, support, query):
-        N, C, H, W = support.size()
-        R = C // self.group
-        offset = self.off_conv(torch.cat([query, support], 1))
-        dynamic_filter = self.kernel_conv(support, offset)
-        dynamic_filter = F.sigmoid(dynamic_filter)
-        return dynamic_filter
-
-
-class DynamicWeights(nn.Module):
-    def __init__(self, channels, dilation=1, kernel=3, groups=1, nFeat=640):
-        super(DynamicWeights, self).__init__()
-        self.softmax = nn.Softmax(dim=-1)
-        padding = 1 if kernel == 3 else 0
-        offset_groups = 1
-        self.unfold = nn.Unfold(kernel_size=(kernel, kernel),
-                                padding=padding, dilation=1)
-
-        self.K = kernel * kernel
-        self.group = groups
-        self.nFeat = nFeat
-
-    def forward(self, t=None, x=None):
-        query, dynamic_filter = x
-        N, C, H, W = query.size()
-        N_, C_, H_, W_ = dynamic_filter.size()
-        R = C // self.group
-        dynamic_filter = dynamic_filter.reshape(-1, self.K)
-
-        xd_unfold = self.unfold(query)
-
-        xd_unfold = xd_unfold.view(N, C, self.K, H * W)
-        xd_unfold = xd_unfold.permute(0, 1, 3, 2).contiguous().view(N, self.group, R, H * W, self.K).permute(0, 1, 3, 2,
-                                                                                                             4).contiguous().view(
-            N * self.group * H * W, R, self.K)
-        out1 = torch.bmm(xd_unfold, dynamic_filter.unsqueeze(2))
-        out1 = out1.view(N, self.group, H * W, R).permute(0, 1, 3, 2).contiguous().view(N, self.group * R, H * W).view(
-            N, self.group * R, H, W)
-
-        out1 = F.relu(out1)
-        return (out1, torch.zeros([N_, C_, H_, W_]).cuda())
-
-
-class ODEBlock(nn.Module):
-    def __init__(self, odefunc):
-        super(ODEBlock, self).__init__()
-        self.odefunc = odefunc
-        self.integration_time = torch.tensor([0, 1]).float()
-
-    def forward(self, x):
-        self.integration_time = self.integration_time.type_as(x[0])
-        out = odeint(self.odefunc, x, self.integration_time, rtol=1e-2, atol=1e-2, method='rk4')
-        return out[0][1]
-
-    @property
-    def nfe(self):
-        return self.odefunc.nfe
-
-    @nfe.setter
-    def nfe(self, value):
-        self.odefunc.nfe = value
-
-
 class DynamicWeightsModel(MetaModel):
-    def __init__(self, num_classes=64, kernel=3, groups=1):
+    def __init__(self, way_num, shot_num, query_num, test_way, test_shot, test_query, emb_func, device, num_classes=64,
+                 kernel=3, groups=1):
         super(DynamicWeightsModel, self).__init__()
-        self.base = resnet12()
+
+        self.way_num = way_num
+        self.shot_num = shot_num
+        self.query_num = query_num
+        self.test_way = test_way
+        self.test_shot = test_shot
+        self.test_query = test_query
+        self.device = device
+
+        # Assuming emb_func is a function that returns embeddings for input samples
+        self.emb_func = emb_func
+
+        self.base = resnet12()  # Assuming resnet12 is defined elsewhere
         self.nFeat = self.base.nFeat
-        self.global_clasifier = nn.Conv2d(self.nFeat, num_classes, kernel_size=1)
+        self.global_classifier = nn.Conv2d(self.nFeat, num_classes, kernel_size=1)
 
         self.dw_gen = DynamicWeights_(self.nFeat, 1, kernel, groups)
-        self.dw = self.dw = ODEBlock(DynamicWeights(self.nFeat, 1, kernel, groups, self.nFeat))
+        self.dw = ODEBlock(DynamicWeights(self.nFeat, 1, kernel, groups, self.nFeat))
 
     def reshape(self, ftrain, ftest):
         b, n1, c, h, w = ftrain.shape
@@ -230,3 +155,83 @@ class DynamicWeightsModel(MetaModel):
     #     Returns a new optimizer for the adaptation phase.
     #     """
     #     return torch.optim.Adam(self.parameters(), lr=0.01, momentum=0.9)
+
+
+class DynamicWeights_(nn.Module):
+    def __init__(self, channels, dilation=1, kernel=3, groups=1):
+        super(DynamicWeights_, self).__init__()
+        self.softmax = nn.Softmax(dim=-1)
+
+        padding = 1 if kernel == 3 else 0
+        offset_groups = 1
+        self.off_conv = nn.Conv2d(channels * 2, 3 * 3 * 2, 5,
+                                  padding=2, dilation=dilation, bias=False)
+        self.kernel_conv = DeformConv(channels, groups * kernel * kernel,
+                                      kernel_size=3, padding=dilation, dilation=dilation, bias=False)
+
+        self.K = kernel * kernel
+        self.group = groups
+
+    def forward(self, support, query):
+        N, C, H, W = support.size()
+        R = C // self.group
+        offset = self.off_conv(torch.cat([query, support], 1))
+        dynamic_filter = self.kernel_conv(support, offset)
+        dynamic_filter = F.sigmoid(dynamic_filter)
+        return dynamic_filter
+
+
+class DynamicWeights(nn.Module):
+    def __init__(self, channels, dilation=1, kernel=3, groups=1, nFeat=640):
+        super(DynamicWeights, self).__init__()
+        self.softmax = nn.Softmax(dim=-1)
+        padding = 1 if kernel == 3 else 0
+        offset_groups = 1
+        self.unfold = nn.Unfold(kernel_size=(kernel, kernel),
+                                padding=padding, dilation=1)
+
+        self.K = kernel * kernel
+        self.group = groups
+        self.nFeat = nFeat
+
+    def forward(self, t=None, x=None):
+        query, dynamic_filter = x
+        N, C, H, W = query.size()
+        N_, C_, H_, W_ = dynamic_filter.size()
+        R = C // self.group
+        dynamic_filter = dynamic_filter.reshape(-1, self.K)
+
+        xd_unfold = self.unfold(query)
+
+        xd_unfold = xd_unfold.view(N, C, self.K, H * W)
+        xd_unfold = xd_unfold.permute(0, 1, 3, 2).contiguous().view(N, self.group, R, H * W, self.K).permute(0, 1, 3, 2,
+                                                                                                             4).contiguous().view(
+            N * self.group * H * W, R, self.K)
+        out1 = torch.bmm(xd_unfold, dynamic_filter.unsqueeze(2))
+        out1 = out1.view(N, self.group, H * W, R).permute(0, 1, 3, 2).contiguous().view(N, self.group * R, H * W).view(
+            N, self.group * R, H, W)
+
+        out1 = F.relu(out1)
+        return (out1, torch.zeros([N_, C_, H_, W_]).cuda())
+
+
+class ODEBlock(nn.Module):
+    def __init__(self, odefunc):
+        super(ODEBlock, self).__init__()
+        self.odefunc = odefunc
+        self.integration_time = torch.tensor([0, 1]).float()
+
+    def forward(self, x):
+        self.integration_time = self.integration_time.type_as(x[0])
+        out = odeint(self.odefunc, x, self.integration_time, rtol=1e-2, atol=1e-2, method='rk4')
+        return out[0][1]
+
+    @property
+    def nfe(self):
+        return self.odefunc.nfe
+
+    @nfe.setter
+    def nfe(self, value):
+        self.odefunc.nfe = value
+
+

@@ -1,0 +1,28 @@
+includes:
+  - headers/data.yaml
+  - headers/device.yaml
+  - headers/misc.yaml
+  - headers/model.yaml
+  - headers/optimizer.yaml
+  - headers/losses.yaml
+  - classifiers/DynamicWeightsModel.yaml
+  - backbones/resnet12.yaml
+
+way_num: 5
+shot_num: 1
+query_num: 30
+#way_num 对应参数 --nKnovel
+#shot_num 对应参数 --nExemplars
+#query_num_train = args.train_nTestNovel
+#以下三个未改
+episode_size: 1
+train_episode: 100
+test_episode: 100
+
+classifier:
+  name: DynamicWeightsModel
+  kwargs: ~
+
+backbone:
+  name: resnet12
+  kwargs: ~

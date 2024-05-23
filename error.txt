@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/media/zyxin/OS/Users/ZYXin/Desktop/Dynamic-Meta-Filter-Reproduction/LibFewShot/run_trainer.py", line 26, in <module>
+    main(0, config)
+  File "/media/zyxin/OS/Users/ZYXin/Desktop/Dynamic-Meta-Filter-Reproduction/LibFewShot/run_trainer.py", line 15, in main
+    trainer = Trainer(rank, config)
+  File "/media/zyxin/OS/Users/ZYXin/Desktop/Dynamic-Meta-Filter-Reproduction/LibFewShot/core/trainer.py", line 58, in __init__
+    self.model, self.model_type = self._init_model(config)
+  File "/media/zyxin/OS/Users/ZYXin/Desktop/Dynamic-Meta-Filter-Reproduction/LibFewShot/core/trainer.py", line 422, in _init_model
+    model = get_instance(arch, "classifier", config, **model_kwargs)
+  File "/media/zyxin/OS/Users/ZYXin/Desktop/Dynamic-Meta-Filter-Reproduction/LibFewShot/core/utils/utils.py", line 35, in get_instance
+    return getattr(module, config[name]["name"])(**kwargs)
+TypeError: 'module' object is not callable
