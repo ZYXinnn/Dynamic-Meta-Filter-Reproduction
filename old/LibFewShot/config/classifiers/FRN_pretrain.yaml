@@ -1,5 +1,0 @@
-classifier:
-  name: FRN_Pretrain
-  kwargs:
-    num_cat: 351
-    num_channel: 640

@@ -11,10 +11,10 @@ from torch.nn import functional as F
 from ...dconv.layers import DeformConv
 from torchdiffeq import odeint as odeint
 
-class DynamicWeightsModel(MetaModel):
+class Model(nn.Module):
     def __init__(self, way_num, shot_num, query_num, test_way, test_shot, test_query, emb_func, device, num_classes=64,
                  kernel=3, groups=1):
-        super(DynamicWeightsModel, self).__init__()
+        super(Model, self).__init__()
 
         self.way_num = way_num
         self.shot_num = shot_num

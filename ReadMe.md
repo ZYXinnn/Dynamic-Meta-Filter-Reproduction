@@ -5,11 +5,8 @@
 ### Environment
 
 - Ubuntu 22.04
-
 - [LibFewShot](https://github.com/RL-VIG/LibFewShot)
-
 - [CUDA == 12.1](https://developer.nvidia.com/cuda-12-1-0-download-archive?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=22.04&target_type=runfile_local)
-
 - PyTorch == 2.3.0
 
 
@@ -123,4 +120,8 @@ model `DynamicWeightsModel`
 
 ### Todo
 model存在问题
+
+
+
+
 

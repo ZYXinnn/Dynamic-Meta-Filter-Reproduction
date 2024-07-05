@@ -1,3 +1,9 @@
+'''
+Author: ZYXin
+Date: 2024-06-28 16:17:21
+LastEditTime: 2024-06-28 16:25:40
+FilePath: \Dynamic-Meta-filter\torchFewShot\datasets\miniImageNet.py
+'''
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -11,7 +17,7 @@ class miniImageNet(object):
     # 64 * 600 (train) + 16 * 600 (val) + 20 * 600 (test)
     """
     #dataset_dir = '/home/liuchen/cvpr_20/miniImagenet/'
-    dataset_dir = '/home/xuchengming/XCM/fewShotExperiments/datas/miniImagenet'
+    dataset_dir = r'G:\LibFewShot\data\fewshot\miniImageNet1'
 
     def __init__(self):
         super(miniImageNet, self).__init__()

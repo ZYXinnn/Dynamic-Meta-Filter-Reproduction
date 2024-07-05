@@ -125,7 +125,10 @@ class FewShotDataset_test(Dataset):
         for (img_idx, label) in examples:
             img = self.dataset[img_idx][0]
             if self.load:
-                img = Image.fromarray(img)
+                img_path = img  # img 是一个图片路径字符串
+                img = Image.open(img_path)  # 用 PIL 加载图片
+                img_array = np.array(img)  # 将 PIL Image 对象转换为 numpy 数组
+                img = Image.fromarray(img_array)
             else:
                 img = read_image(img)
             if self.transform is not None:

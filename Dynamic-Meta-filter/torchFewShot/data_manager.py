@@ -1,5 +1,3 @@
-# 数据集增强调用根据公平比较未完全调用
-# use ***********************************************************************
 from __future__ import absolute_import
 from __future__ import print_function
 
@@ -20,9 +18,8 @@ class DataManager(object):
         self.use_gpu = use_gpu
 
         print("Initializing dataset {}".format(args.dataset))
-        dataset = datasets.init_imgfewshot_dataset(name=args.dataset, root=args.root)
+        dataset = datasets.init_imgfewshot_dataset(name=args.dataset)
 
-# not use
         if args.load:
             transform_train = T.Compose([
                 T.RandomCrop(84, padding=8),
@@ -37,7 +34,6 @@ class DataManager(object):
                 T.ToTensor(),
                 T.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
             ])
-#end not use
         elif args.cifar:
             transform_train = T.Compose([
                 T.RandomCrop(32, padding=4),
@@ -69,7 +65,7 @@ class DataManager(object):
                 T.ToTensor(),
                 T.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
             ])
-# end_use ***********************************************************************
+
         pin_memory = True if use_gpu else False
 
         self.trainloader = DataLoader(
@@ -83,7 +79,7 @@ class DataManager(object):
                     epoch_size=args.train_epoch_size,
                     transform=transform_train,
                     load=args.load,
-                    tiered=args.tiered,
+                    tiered=args.tiered,   	
                 ),
                 batch_size=args.train_batch, shuffle=True, num_workers=args.workers,
                 pin_memory=pin_memory, drop_last=True,

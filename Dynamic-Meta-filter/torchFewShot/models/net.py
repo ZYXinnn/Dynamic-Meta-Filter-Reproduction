@@ -130,8 +130,8 @@ class Model(nn.Module):
 
         ftrain_ = ftrain.clone()
         ftest_ = ftest.clone()
-        ftrain_ = ftrain_.view(-1, *ftrain.size()[3:])
-        ftest_ = ftest_.view(-1, *ftest.size()[3:])
+        ftrain_ = ftrain_.reshape(-1, *ftrain.size()[3:])
+        ftest_ = ftest_.reshape(-1, *ftest.size()[3:])
 
         ftrain_norm = F.normalize(ftrain, p=2, dim=3, eps=1e-12)
         ftrain_norm = ftrain_norm.reshape(-1, *ftrain_norm.size()[3:])

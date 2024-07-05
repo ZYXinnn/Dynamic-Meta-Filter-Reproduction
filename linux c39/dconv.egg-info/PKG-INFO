@@ -1,6 +1,0 @@
-Metadata-Version: 2.1
-Name: dconv
-Version: 0.1
-Summary: object detection in pytorch
-Home-page: https://github.com/facebookresearch/maskrcnn-benchmark
-Author: fmassa

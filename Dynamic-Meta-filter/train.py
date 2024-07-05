@@ -1,4 +1,3 @@
-# use ************************************************************
 from __future__ import print_function
 from __future__ import division
 
@@ -61,16 +60,14 @@ def main():
         print("Currently using CPU (GPU is highly recommended)")
         
     print('Initializing image data manager')
-# end_use ************************************************************
-# 这里有数据集增强，仍未完全调用
     dm = DataManager(args, use_gpu)
     trainloader, testloader = dm.return_dataloaders()
 
     model = Model(num_classes=args.num_classes, groups=args.groups, kernel=args.kernel)
     #model = nn.DataParallel(model)
     criterion = CrossEntropyLoss()
-# use ************************************************************
     optimizer = init_optimizer(args.optim, model.parameters(), args.lr, args.weight_decay)
+    
     if use_gpu:
         model = model.cuda()
 
@@ -79,7 +76,7 @@ def main():
     best_acc = -np.inf
     best_epoch = 0
     print("==> Start training")
-
+    
     warmup_epoch = 5
     scheduler = warmup_scheduler(base_lr=args.lr, iter_per_epoch=len(trainloader), 
     max_epoch=args.max_epoch + warmup_epoch, multi_step=[], warmup_epoch=warmup_epoch)
@@ -88,7 +85,7 @@ def main():
         start_train_time = time.time()
         train(epoch, model, criterion, optimizer, trainloader, scheduler, use_gpu)
         train_time += round(time.time() - start_train_time)
-# end_use ************************************************************
+        
         if epoch == 0 or epoch > (args.stepsize[0]-1) or (epoch + 1) % 10 == 0:
             acc = test(model, testloader, use_gpu)
             is_best = acc > best_acc
@@ -134,9 +131,13 @@ def train(epoch, model, criterion, optimizer, trainloader, scheduler, use_gpu):
 
         labels_train_1hot = one_hot(labels_train).cuda()
         labels_test_1hot = one_hot(labels_test).cuda()
-
+        print(images_train.shape)
+        print(images_test.shape)
+        print(labels_train_1hot.shape)
+        print(labels_test_1hot.shape)
+        print(pids.shape)
         ytest, cls_scores = model(images_train, images_test, labels_train_1hot, labels_test_1hot, pids.view(-1))
-
+        print(ytest.shape)
         loss1 = criterion(ytest, pids.view(-1))
         loss2 = criterion(cls_scores, labels_test.view(-1))
         loss = loss1 + 0.5 * loss2

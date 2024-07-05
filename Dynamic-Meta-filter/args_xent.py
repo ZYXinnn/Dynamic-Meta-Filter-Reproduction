@@ -1,3 +1,9 @@
+'''
+Author: ZYXin
+Date: 2024-06-28 16:17:21
+LastEditTime: 2024-06-28 16:30:47
+FilePath: \Dynamic-Meta-filter\args_xent.py
+'''
 import argparse
 import torchFewShot
 
@@ -7,11 +13,9 @@ def argument_parser():
     # ************************************************************
     # Datasets (general)
     # ************************************************************
-    parser.add_argument('-d', '--dataset', type=str, default='miniImageNet_load')
-    parser.add_argument('--root', type=str, default='/youtu_action_data/chengmingxu/data/miniImageNet_pickle')
-    # use ***********************************************************************
+    parser.add_argument('-d', '--dataset', type=str, default='miniImageNet')
+    parser.add_argument('--root', type=str, default='G:\LibFewShot\data\fewshot\miniImageNet1')
     parser.add_argument('--suffix', type=str, default=None)
-    # end_use ***********************************************************************
     parser.add_argument('--load', default=True)
     parser.add_argument('--cifar', default=False)
     parser.add_argument('--tiered', default=False)
@@ -26,20 +30,20 @@ def argument_parser():
     # ************************************************************
     # Optimization options
     # ************************************************************
-    # use ***********************************************************************
     parser.add_argument('--optim', type=str, default='sgd',
                         help="optimization algorithm (see optimizers.py)")
     parser.add_argument('--lr', '--learning-rate', default=0.35, type=float,
                         help="initial learning rate")
     parser.add_argument('--weight-decay', default=5e-04, type=float,
                         help="weight decay (default: 5e-04)")
+
     parser.add_argument('--max-epoch', default=90, type=int,
                         help="maximum epochs to run")
     parser.add_argument('--start-epoch', default=0, type=int,
                         help="manual epoch number (useful on restarts)")
-    # end_use *******************************************************************
     parser.add_argument('--stepsize', default=[60], nargs='+', type=int,
                         help="stepsize to decay learning rate")
+
     parser.add_argument('--train-batch', default=4, type=int,
                         help="train batch size")
     parser.add_argument('--test-batch', default=4, type=int,
@@ -56,9 +60,8 @@ def argument_parser():
     # Miscs
     # ************************************************************
     parser.add_argument('--save-dir', type=str, default='./weights')
-    # use ***********************************************************************
-    parser.add_argument('--gpu-devices', default='2', type=str)
-    # end_use *******************************************************************
+    parser.add_argument('--gpu-devices', default='0,1,2', type=str)
+
     # ************************************************************
     # FewShot settting
     # ************************************************************
@@ -72,15 +75,14 @@ def argument_parser():
     parser.add_argument('--train_epoch_size', type=int, default=1200,
                         help='number of batches per epoch when training')
     parser.add_argument('--nTestNovel', type=int, default=15 * 5,
+
                         help='number of test examples for all the novel category')
     parser.add_argument('--epoch_size', type=int, default=2000,
                         help='number of batches per epoch')
 
     parser.add_argument('--phase', default='val', type=str,
                         help='use test or val dataset to early stop')
-    # use ***********************************************************************
     parser.add_argument('--seed', type=int, default=1)
-    # end_use *******************************************************************
     parser.add_argument('--resume', type=str, default='./weights/mini/1shot.pth.tar', metavar='PATH')
 
     return parser
