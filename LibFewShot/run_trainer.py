@@ -1,4 +1,4 @@
-# add ***********************************************************************
+# add ***s********************************************************************
 # from __future__ import print_function
 # from __future__ import division
 # end_add ***********************************************************************
@@ -18,7 +18,7 @@ def main(rank, config):
 
 if __name__ == "__main__":
     config = Config("./config/DynamicWeightsModel.yaml").get_config_dict()
-
+    # config = Config("./reproduce/CAN/CAN-miniImageNet--ravi-resnet12-5-1-Table2.yaml").get_config_dict()
     if config["n_gpu"] > 1:
         os.environ["CUDA_VISIBLE_DEVICES"] = config["device_ids"]
         torch.multiprocessing.spawn(main, nprocs=config["n_gpu"], args=(config,))

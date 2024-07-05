@@ -47,18 +47,13 @@ optimizer:
 #    milestone: [30, 60, 90]
 #    gamma: 0.1
 #    # warmup_epoch: 5
-#lr_scheduler:
-#  kwargs:
-#    gamma: 0.1
-#    milestones:
-#    - 40
-#    - 80
-#  name: MultiStepLR
 lr_scheduler:
   kwargs:
-    T_max: 100
-    eta_min: 0
-  name: CosineAnnealingLR
+    gamma: 0.1
+    milestones:
+    - 40
+    - 80
+  name: MultiStepLR
 
 warmup: 0 # set 0 to turn off warmup
 

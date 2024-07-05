@@ -1,0 +1,202 @@
+==========
+Args:Namespace(dataset='miniImageNet', root='/hy-tmp/miniImageNet', suffix=None, load=True, cifar=False, tiered=False, workers=4, height=84, width=84, optim='sgd', lr=0.35, weight_decay=0.0005, max_epoch=90, start_epoch=0, stepsize=[60], train_batch=4, test_batch=4, num_classes=64, groups=64, kernel=1, save_dir='./weights', gpu_devices='0,1,2', nKnovel=5, nExemplars=5, train_nTestNovel=30, train_epoch_size=1200, nTestNovel=75, epoch_size=2000, phase='val', seed=1, resume='./weights/mini/5shot.pth.tar')
+==========
+Currently using GPU 0,1,2
+Initializing image data manager
+Initializing dataset miniImageNet
+=> MiniImageNet loaded
+Dataset statistics:
+  ------------------------------
+  subset   | # cats | # images
+  ------------------------------
+  train    |    64 |    38400
+  val      |    16 |     9600
+  test     |    20 |    12000
+  ------------------------------
+  total    |   100 |    60000
+  ------------------------------
+==> Start training
+Using cosine learning rate decay
+Epoch1 lr: 0.06999999999999999 Time:192.7s Data:0.8s Loss:4.7293 
+Accuracy: 44.02%, std: :0.37%
+==> Test 5-way Best accuracy 44.02%, achieved at epoch 1
+Epoch2 lr: 0.13999999999999999 Time:188.1s Data:1.2s Loss:4.3112 
+Epoch3 lr: 0.21 Time:187.6s Data:1.2s Loss:4.1015 
+Epoch4 lr: 0.27999999999999997 Time:187.3s Data:0.9s Loss:3.9713 
+Epoch5 lr: 0.35 Time:187.4s Data:1.0s Loss:3.8972 
+Epoch6 lr: 0.34989339472834174 Time:187.5s Data:0.9s Loss:3.8549 
+Epoch7 lr: 0.34957370879546923 Time:187.6s Data:0.9s Loss:3.7898 
+Epoch8 lr: 0.3490413316894478 Time:188.1s Data:1.1s Loss:3.7045 
+Epoch9 lr: 0.3482969120297748 Time:188.5s Data:1.2s Loss:3.6526 
+Epoch10 lr: 0.3473413567771364 Time:188.2s Data:0.9s Loss:3.5964 
+Accuracy: 61.08%, std: :0.39%
+==> Test 5-way Best accuracy 61.08%, achieved at epoch 10
+Epoch11 lr: 0.34617583012841596 Time:188.3s Data:0.9s Loss:3.6000 
+Epoch12 lr: 0.34480175209829933 Time:188.7s Data:1.2s Loss:3.5637 
+Epoch13 lr: 0.3432207967892058 Time:188.7s Data:1.2s Loss:3.5319 
+Epoch14 lr: 0.34143489035165187 Time:188.3s Data:1.0s Loss:3.5123 
+Epoch15 lr: 0.33944620863753394 Time:188.3s Data:1.0s Loss:3.4701 
+Epoch16 lr: 0.3372571745491878 Time:188.2s Data:1.0s Loss:3.4637 
+Epoch17 lr: 0.3348704550874551 Time:188.5s Data:1.1s Loss:3.4355 
+Epoch18 lr: 0.3322889581023542 Time:188.5s Data:1.2s Loss:3.4220 
+Epoch19 lr: 0.3295158287503122 Time:188.4s Data:1.1s Loss:3.4038 
+Epoch20 lr: 0.32655444566227676 Time:188.2s Data:1.1s Loss:3.4092 
+Accuracy: 61.69%, std: :0.40%
+==> Test 5-way Best accuracy 61.69%, achieved at epoch 20
+Epoch21 lr: 0.3234084168273745 Time:188.2s Data:1.1s Loss:3.3954 
+Epoch22 lr: 0.32008157519713226 Time:188.4s Data:1.2s Loss:3.3423 
+Epoch23 lr: 0.31657797401561577 Time:188.1s Data:1.1s Loss:3.3810 
+Epoch24 lr: 0.3129018818811763 Time:187.8s Data:0.9s Loss:3.3337 
+Epoch25 lr: 0.3090577775458211 Time:187.9s Data:1.0s Loss:3.3293 
+Epoch26 lr: 0.30505034445854395 Time:188.1s Data:1.0s Loss:3.3089 
+Epoch27 lr: 0.3008844650592639 Time:188.5s Data:1.2s Loss:3.3049 
+Epoch28 lr: 0.2965652148303245 Time:188.2s Data:1.2s Loss:3.2569 
+Epoch29 lr: 0.29209785611280015 Time:187.9s Data:0.9s Loss:3.2685 
+Epoch30 lr: 0.28748783169514436 Time:187.9s Data:1.0s Loss:3.2598 
+Accuracy: 67.59%, std: :0.38%
+==> Test 5-way Best accuracy 67.59%, achieved at epoch 30
+Epoch31 lr: 0.2827407581819902 Time:188.4s Data:1.2s Loss:3.2325 
+Epoch32 lr: 0.27786241915118276 Time:187.9s Data:1.0s Loss:3.2348 
+Epoch33 lr: 0.2728587581073807 Time:188.0s Data:1.0s Loss:3.2167 
+Epoch34 lr: 0.26773587124081083 Time:188.3s Data:1.2s Loss:3.2104 
+Epoch35 lr: 0.26249999999999996 Time:188.4s Data:1.2s Loss:3.1814 
+Epoch36 lr: 0.25715752348753085 Time:188.3s Data:1.2s Loss:3.1478 
+Epoch37 lr: 0.2517149506880885 Time:187.7s Data:0.9s Loss:3.1474 
+Epoch38 lr: 0.24617891253826504 Time:187.8s Data:1.0s Loss:3.1263 
+Epoch39 lr: 0.24055615384778462 Time:188.3s Data:1.2s Loss:3.1075 
+Epoch40 lr: 0.23485352508199203 Time:188.1s Data:1.1s Loss:3.1073 
+Accuracy: 70.48%, std: :0.37%
+==> Test 5-way Best accuracy 70.48%, achieved at epoch 40
+Epoch41 lr: 0.22907797401561578 Time:188.2s Data:1.1s Loss:3.0730 
+Epoch42 lr: 0.22323653726797482 Time:188.1s Data:1.0s Loss:3.0595 
+Epoch43 lr: 0.21733633172994182 Time:187.9s Data:0.9s Loss:3.0554 
+Epoch44 lr: 0.21138454589310784 Time:187.9s Data:0.9s Loss:3.0269 
+Epoch45 lr: 0.20538843109171284 Time:187.9s Data:0.9s Loss:3.0196 
+Epoch46 lr: 0.19935529266801144 Time:188.1s Data:1.1s Loss:2.9918 
+Epoch47 lr: 0.19329248107183936 Time:188.2s Data:1.1s Loss:2.9622 
+Epoch48 lr: 0.1872073829052219 Time:188.2s Data:1.1s Loss:2.9067 
+Epoch49 lr: 0.1811074119229377 Time:188.1s Data:1.1s Loss:2.9237 
+Epoch50 lr: 0.175 Time:187.8s Data:1.0s Loss:2.8972 
+Accuracy: 70.32%, std: :0.38%
+==> Test 5-way Best accuracy 70.48%, achieved at epoch 40
+Epoch51 lr: 0.16889258807706237 Time:188.0s Data:0.9s Loss:2.8879 
+Epoch52 lr: 0.16279261709477807 Time:188.0s Data:0.9s Loss:2.8471 
+Epoch53 lr: 0.15670751892816065 Time:188.3s Data:1.2s Loss:2.8362 
+Epoch54 lr: 0.1506447073319886 Time:188.3s Data:1.2s Loss:2.7796 
+Epoch55 lr: 0.1446115689082872 Time:188.2s Data:1.1s Loss:2.7841 
+Epoch56 lr: 0.13861545410689213 Time:188.1s Data:0.9s Loss:2.7715 
+Epoch57 lr: 0.13266366827005815 Time:188.0s Data:0.9s Loss:2.7253 
+Epoch58 lr: 0.12676346273202516 Time:188.0s Data:1.0s Loss:2.6876 
+Epoch59 lr: 0.1209220259843842 Time:188.0s Data:1.0s Loss:2.6600 
+Epoch60 lr: 0.11514647491800797 Time:188.3s Data:1.1s Loss:2.6450 
+Accuracy: 72.66%, std: :0.36%
+==> Test 5-way Best accuracy 72.66%, achieved at epoch 60
+Epoch61 lr: 0.10944384615221538 Time:188.2s Data:1.1s Loss:2.6472 
+Accuracy: 71.28%, std: :0.37%
+==> Test 5-way Best accuracy 72.66%, achieved at epoch 60
+Epoch62 lr: 0.10382108746173499 Time:188.2s Data:1.0s Loss:2.6029 
+Accuracy: 71.00%, std: :0.36%
+==> Test 5-way Best accuracy 72.66%, achieved at epoch 60
+Epoch63 lr: 0.09828504931191143 Time:188.2s Data:1.0s Loss:2.5574 
+Accuracy: 73.89%, std: :0.36%
+==> Test 5-way Best accuracy 73.89%, achieved at epoch 63
+Epoch64 lr: 0.09284247651246916 Time:188.2s Data:1.0s Loss:2.5385 
+Accuracy: 73.53%, std: :0.36%
+==> Test 5-way Best accuracy 73.89%, achieved at epoch 63
+Epoch65 lr: 0.08750000000000004 Time:188.3s Data:1.1s Loss:2.4866 
+Accuracy: 74.00%, std: :0.36%
+==> Test 5-way Best accuracy 74.00%, achieved at epoch 65
+Epoch66 lr: 0.08226412875918916 Time:188.4s Data:1.1s Loss:2.4792 
+Accuracy: 73.47%, std: :0.36%
+==> Test 5-way Best accuracy 74.00%, achieved at epoch 65
+Epoch67 lr: 0.07714124189261932 Time:188.5s Data:1.2s Loss:2.4464 
+Accuracy: 75.24%, std: :0.34%
+==> Test 5-way Best accuracy 75.24%, achieved at epoch 67
+Epoch68 lr: 0.07213758084881722 Time:188.3s Data:1.1s Loss:2.4064 
+Accuracy: 74.19%, std: :0.37%
+==> Test 5-way Best accuracy 75.24%, achieved at epoch 67
+Epoch69 lr: 0.0672592418180098 Time:188.1s Data:0.9s Loss:2.3647 
+Accuracy: 75.84%, std: :0.35%
+==> Test 5-way Best accuracy 75.84%, achieved at epoch 69
+Epoch70 lr: 0.0625121683048556 Time:188.3s Data:1.0s Loss:2.3297 
+Accuracy: 74.96%, std: :0.36%
+==> Test 5-way Best accuracy 75.84%, achieved at epoch 69
+Epoch71 lr: 0.057902143887199865 Time:188.3s Data:1.0s Loss:2.2974 
+Accuracy: 76.85%, std: :0.34%
+==> Test 5-way Best accuracy 76.85%, achieved at epoch 71
+Epoch72 lr: 0.05343478516967546 Time:188.2s Data:0.9s Loss:2.2635 
+Accuracy: 76.47%, std: :0.35%
+==> Test 5-way Best accuracy 76.85%, achieved at epoch 71
+Epoch73 lr: 0.049115534940736075 Time:188.5s Data:1.1s Loss:2.2437 
+Accuracy: 76.64%, std: :0.35%
+==> Test 5-way Best accuracy 76.85%, achieved at epoch 71
+Epoch74 lr: 0.04494965554145598 Time:188.6s Data:1.2s Loss:2.1891 
+Accuracy: 77.11%, std: :0.35%
+==> Test 5-way Best accuracy 77.11%, achieved at epoch 74
+Epoch75 lr: 0.04094222245417886 Time:188.4s Data:0.9s Loss:2.1482 
+Accuracy: 78.02%, std: :0.34%
+==> Test 5-way Best accuracy 78.02%, achieved at epoch 75
+Epoch76 lr: 0.037098118118823666 Time:188.7s Data:1.2s Loss:2.1025 
+Accuracy: 77.47%, std: :0.35%
+==> Test 5-way Best accuracy 78.02%, achieved at epoch 75
+Epoch77 lr: 0.033422025984384214 Time:188.6s Data:1.1s Loss:2.0652 
+Accuracy: 77.75%, std: :0.34%
+==> Test 5-way Best accuracy 78.02%, achieved at epoch 75
+Epoch78 lr: 0.029918424802867712 Time:188.6s Data:1.2s Loss:2.0143 
+Accuracy: 78.38%, std: :0.34%
+==> Test 5-way Best accuracy 78.38%, achieved at epoch 78
+Epoch79 lr: 0.026591583172625458 Time:188.7s Data:1.2s Loss:1.9943 
+Accuracy: 78.65%, std: :0.33%
+==> Test 5-way Best accuracy 78.65%, achieved at epoch 79
+Epoch80 lr: 0.023445554337723225 Time:188.7s Data:1.1s Loss:1.9478 
+Accuracy: 79.13%, std: :0.34%
+==> Test 5-way Best accuracy 79.13%, achieved at epoch 80
+Epoch81 lr: 0.020484171249687776 Time:188.7s Data:1.2s Loss:1.8782 
+Accuracy: 79.21%, std: :0.33%
+==> Test 5-way Best accuracy 79.21%, achieved at epoch 81
+Epoch82 lr: 0.017711041897645805 Time:188.9s Data:1.2s Loss:1.8264 
+Accuracy: 80.24%, std: :0.33%
+==> Test 5-way Best accuracy 80.24%, achieved at epoch 82
+Epoch83 lr: 0.015129544912544828 Time:188.9s Data:1.2s Loss:1.7864 
+Accuracy: 79.64%, std: :0.33%
+==> Test 5-way Best accuracy 80.24%, achieved at epoch 82
+Epoch84 lr: 0.01274282545081222 Time:205.2s Data:1.1s Loss:1.7599 
+Accuracy: 80.10%, std: :0.33%
+==> Test 5-way Best accuracy 80.24%, achieved at epoch 82
+Epoch85 lr: 0.010553791362466043 Time:212.8s Data:0.9s Loss:1.6873 
+Accuracy: 80.52%, std: :0.33%
+==> Test 5-way Best accuracy 80.52%, achieved at epoch 85
+Epoch86 lr: 0.008565109648348132 Time:213.5s Data:1.2s Loss:1.6344 
+Accuracy: 81.15%, std: :0.32%
+==> Test 5-way Best accuracy 81.15%, achieved at epoch 86
+Epoch87 lr: 0.006779203210794193 Time:213.3s Data:1.1s Loss:1.6138 
+Accuracy: 80.83%, std: :0.33%
+==> Test 5-way Best accuracy 81.15%, achieved at epoch 86
+Epoch88 lr: 0.0051982479017006165 Time:213.1s Data:0.9s Loss:1.5431 
+Accuracy: 81.47%, std: :0.32%
+==> Test 5-way Best accuracy 81.47%, achieved at epoch 88
+Epoch89 lr: 0.0038241698715840043 Time:213.0s Data:0.9s Loss:1.5110 
+Accuracy: 81.55%, std: :0.31%
+==> Test 5-way Best accuracy 81.55%, achieved at epoch 89
+Epoch90 lr: 0.002658643222863596 Time:212.9s Data:0.9s Loss:1.4859 
+Accuracy: 81.81%, std: :0.31%
+==> Test 5-way Best accuracy 81.81%, achieved at epoch 90
+Epoch91 lr: 0.0017030879702251865 Time:213.3s Data:1.2s Loss:1.4611 
+Accuracy: 81.72%, std: :0.32%
+==> Test 5-way Best accuracy 81.81%, achieved at epoch 90
+Epoch92 lr: 0.0009586683105521742 Time:213.3s Data:1.1s Loss:1.4246 
+Accuracy: 81.99%, std: :0.31%
+==> Test 5-way Best accuracy 81.99%, achieved at epoch 92
+Epoch93 lr: 0.0004262912045307654 Time:213.1s Data:1.0s Loss:1.4069 
+Accuracy: 82.00%, std: :0.32%
+==> Test 5-way Best accuracy 82.00%, achieved at epoch 93
+Epoch94 lr: 0.00010660527165824162 Time:213.1s Data:0.9s Loss:1.3974 
+Accuracy: 82.10%, std: :0.31%
+==> Test 5-way Best accuracy 82.10%, achieved at epoch 94
+Epoch95 lr: 3.5e-06 Time:213.1s Data:1.1s Loss:1.3942 
+Accuracy: 82.11%, std: :0.31%
+==> Test 5-way Best accuracy 82.11%, achieved at epoch 95
+Finished. Total elapsed time (h:m:s): 7:52:05. Training time (h:m:s): 5:03:03.
+==========
+Args:Namespace(dataset='miniImageNet', root='/hy-tmp/miniImageNet', suffix=None, load=True, cifar=False, tiered=False, workers=4, height=84, width=84, optim='sgd', lr=0.35, weight_decay=0.0005, max_epoch=90, start_epoch=0, stepsize=[60], train_batch=4, test_batch=4, num_classes=64, groups=64, kernel=1, save_dir='./weights', gpu_devices='0,1,2', nKnovel=5, nExemplars=5, train_nTestNovel=30, train_epoch_size=1200, nTestNovel=75, epoch_size=2000, phase='val', seed=1, resume='./weights/mini/5shot.pth.tar')
+==========

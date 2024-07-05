@@ -1,34 +1,38 @@
 # [Dynamic-Meta-Filter-Reproduction](https://github.com/ZYXinnn/Dynamic-Meta-Filter-Reproduction)
 
-## Getting Started
+## 环境
 
-### Environment
+- Ubuntu 20.04
+- RTX 3060 Laptop / A 4000 / A 5000 / M 40 / V 100
+- [LibFewShot ](https://github.com/RL-VIG/LibFewShot)& [Dynamic-Meta-filter](https://github.com/chmxu/Dynamic-Meta-filter)
+- CUDA == 12.1 / 11.8
+- Python 3.9 / 3.11
+- GCC/G++ 9.4
+- PyTorch
 
-- Ubuntu 22.04
-- [LibFewShot](https://github.com/RL-VIG/LibFewShot)
-- [CUDA == 12.1](https://developer.nvidia.com/cuda-12-1-0-download-archive?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=22.04&target_type=runfile_local)
-- PyTorch == 2.3.0
-
-
-```
-https://download.pytorch.org/whl/torch_stable.html
-% pip install https://download.pytorch.org/whl/cu101/torch-1.4.0-cp37-cp37m-win_amd64.whl
-% pip install https://download.pytorch.org/whl/cu101/torch-1.7.0%2Bcu101-cp37-cp37m-win_amd64.whl
-```
-
-- torchdiffeq == 0.1.1
-- torchvision == 0.18.0
 
 ```
-% pip install https://download.pytorch.org/whl/cu101/torchvision-0.5.0-cp37-cp37m-win_amd64.whl
-pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
-```
-
+- torch
+- torchvision
+- torchdiffeq
 - tqdm
-
 - numpy
+- einops
+- future
+- matplotlib
+- numpy
+- pandas
+- Pillow
+- PyYAML
+- rich
+- scikit-learn
+- scipy
+- tensorboard
+```
 
-### Setup
+## 启动
+
+### 安装框架
 
 #### LibFewShot
 
@@ -36,92 +40,71 @@ pip3 install torch torchvision torchaudio --index-url https://download.pytorch.o
 git clone https://github.com/RL-VIG/LibFewShot.git
 ```
 
-#### Conda
+##### 测试安装
 
-```
-conda create -n libfewshot python=3.9
-conda activate libfewshot
-pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
-pip install torchdiffeq==0.1.1
-pip install -r '\your_path\LibFewShot\requirements.txt'
-```
+1. 下载 [miniImageNet--ravi.tar.gz](https://box.nju.edu.cn/d/7f6c5bd7cfaf4b019c34/) 并解压到 \your_path\LibFewShot\data\fewshot
 
-### Test the installation
-
-1. download [miniImageNet--ravi.tar.gz](https://box.nju.edu.cn/d/7f6c5bd7cfaf4b019c34/) and extract it to \your_path\LibFewShot\data\fewshot
-
-2. set the `config` as follows in `run_trainer.py`:
+2. 修改`run_trainer.py`中`config`设置的一行为
 
    ```
    config = Config("./config/test_install.yaml").get_config_dict()
    ```
 
-3. modify `data_root` in `config/headers/data.yaml` to the path of the dataset to be used.
+3. 修改`config/headers/data.yaml`中的`data_root`为需要使用的数据集的路径
 
    ```
    /data/fewshot/miniImageNet--ravi   -->    ./data/fewshot/miniImageNet--ravi
    ```
 
-4. run code
+4. 执行
 
    ```
    python run_trainer.py
    ```
 
-5. If the first output is correct, it means that `LibFewShot` has been successfully installed.
+5. 若第一个epoch输出正常，则表明`LibFewShot`已成功安装。
 
-### 将Dynamic-Meta-filter模型移植至LibFewShot框架内
+#### Dynamic-Meta-filter
 
-#### 代码格式
-
-在Dynamic-Meta-filter代码中，已移植或使用或无用的部分使用
-
-```python
-# use ********************************************
-# end_use ****************************************
+```
+git clone https://github.com/chmxu/Dynamic-Meta-filter.git
 ```
 
-在LibFewShot框架代码中，在`.yaml`修改的代码是将原有代码全部注释（#）并重新书写，在`.py`加入的代码使用
+### 训练与测试
 
-```python
-# add ********************************************
-# end_add ****************************************
+##### 使用Dynamic-Meta-filter源代码
+
+```
+python setup.py develop build
+python train.py --root {data root} --nExemplars {1/5} --resume {./weights/mini/[1/5]shot.pth.tar}
 ```
 
-已全部修改/使用的代码使用
+##### 使用LibFewShot
 
-```python
-# use_all ********************************************
+```
+cd core
+python setup.py develop build
+cd /path/to/LibFewShot
+python run_trainer.py
 ```
 
-以下是已经全部完成修改/使用的代码
+## 复现结果表
 
-5.22
+|      | Frame                                                        | Embedding | *mini*ImageNet (5,1) | *mini*ImageNet (5,5) |
+| ---- | ------------------------------------------------------------ | --------- | -------------------- | -------------------- |
+| 1    | [Dynamic-Meta-filter](https://github.com/chmxu/Dynamic-Meta-filter) | ResNet12  | 67.88 ± 0.49         | 82.11 ± 0.31         |
+| 2    | [LibFewShot ](https://github.com/RL-VIG/LibFewShot)          | ResNet12  | 59.453               | ——                   |
 
-\LibFewShot\config\headers\optimizer.yaml          ---warmup未引用
+以下为`log_train/.txt`及`.log`部分截图，具体训练过程可见压缩包
 
-\Dynamic-Meta-filter\torchFewShot\optimizers.py
+Dynamic-Meta-filter - *mini*ImageNet (5,1)
 
-\LibFewShot\config\headers\device.yaml
+![image-20240705202327819](C:\Users\ZYXin\AppData\Roaming\Typora\typora-user-images\image-20240705202327819.png)
 
-\LibFewShot\core\model\meta\DynamicWeights.py          ---加入DynamicWeights.py但未完全实现
+Dynamic-Meta-filter - *mini*ImageNet (5,5)
 
-5.23
+![image-20240705202420660](C:\Users\ZYXin\AppData\Roaming\Typora\typora-user-images\image-20240705202420660.png)
 
-\LibFewShot\config\headers\losses.yaml
+LibFewShot  - *mini*ImageNet (5,1)
 
-model `DynamicWeightsModel`
-- `set_forward`：用于推理阶段调用，返回分类输出以及准确率。
-- `set_forward_loss`：用于训练阶段调用，返回分类输出、准确率以及前向损失。
-- （`set_forward_adaptation`是微调网络阶段的分类过程所采用的逻辑
-- `sub_optimizer`用于在微调时提供新的局部优化器。）
-
-完成lr_scheduler以及warmup:MultiStepLR    ---其中iters_per_epoch: # len(trainloader)  未使用
-
-### Todo
-model存在问题
-
-
-
-
-
+![image-20240705230908221](C:\Users\ZYXin\AppData\Roaming\Typora\typora-user-images\image-20240705230908221.png)

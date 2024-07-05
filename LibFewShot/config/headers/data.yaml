@@ -1,7 +1,7 @@
 #都未改
 
 data_root: ./data/fewshot/miniImageNet--ravi
-image_size: 84 #?
+image_size: 84
 use_memory: False
 augment: True
 augment_times: 1

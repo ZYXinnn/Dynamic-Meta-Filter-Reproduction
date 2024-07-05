@@ -159,6 +159,54 @@ class AbstractModel(nn.Module):
 
         return support_features, query_features, support_target, query_target
 
+    # def split_by_episode1(self, features, mode): #供自己测试使用
+    #     """
+    #     split features by episode and
+    #     generate local targets + split labels by episode
+    #     """
+    #     # Adjust way_num, shot_num, query_num based on the new requirements
+    #     self.way_num = 5  # Number of classes per episode
+    #     self.shot_num = 1  # Number of support samples per class
+    #     self.query_num = 6  # Number of query samples per class
+    #
+    #     episode_size = 4  # Fixed episode size
+    #     local_labels = (
+    #         self._generate_local_targets(episode_size)
+    #         .to(self.device)
+    #         .contiguous()
+    #         .view(episode_size, self.way_num, self.shot_num + self.query_num)
+    #     )
+    #
+    #     # input 4D, return 5D(with episode) E.g.DN4
+    #     b, c, h, w = features.shape
+    #     features = features.contiguous().view(
+    #         episode_size,
+    #         self.way_num,
+    #         self.shot_num + self.query_num,
+    #         c,
+    #         h,
+    #         w,
+    #     )
+    #     support_features = (
+    #         features[:, :, : self.shot_num, :, ...]
+    #         .contiguous()
+    #         .view(episode_size, self.way_num * self.shot_num, c, h, w)
+    #     )
+    #     query_features = (
+    #         features[:, :, self.shot_num :, :, ...]
+    #         .contiguous()
+    #         .view(episode_size, self.way_num * self.query_num, c, h, w)
+    #     )
+    #     support_target = local_labels[:, :, : self.shot_num].reshape(
+    #         episode_size, self.way_num * self.shot_num
+    #     )
+    #     query_target = local_labels[:, :, self.shot_num:].reshape(
+    #         episode_size, self.way_num * self.query_num
+    #     )
+    #
+    #     return support_features, query_features, support_target, query_target
+
+
     def reverse_setting_info(self):
         (
             self.way_num,

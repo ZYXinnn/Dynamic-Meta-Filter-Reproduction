@@ -364,10 +364,12 @@ class CAN(MetricModel):
         images, global_targets = batch
         images = images.to(self.device)
         global_targets = global_targets.to(self.device)
+        print(images.shape)
         episode_size = images.size(0) // (
             self.way_num * (self.shot_num + self.query_num)
         )
         emb = self.emb_func(images)  # [80, 640]
+        print(emb.shape)
         (
             support_feat,
             query_feat,
@@ -377,6 +379,7 @@ class CAN(MetricModel):
             emb, mode=2
         )  # [4,5,512,6,6] [4,
         # 75, 512,6,6] [4, 5] [300]
+        print(support_feat.shape, query_feat.shape, support_targets.shape, query_targets.shape)
         support_targets = support_targets.reshape(
             episode_size, self.way_num * self.shot_num
         ).contiguous()
