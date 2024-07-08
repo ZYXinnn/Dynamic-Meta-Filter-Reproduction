@@ -95,16 +95,4 @@ python run_trainer.py
 | 1    | [Dynamic-Meta-filter](https://github.com/chmxu/Dynamic-Meta-filter) | ResNet12  | 67.88 ± 0.49         | 82.11 ± 0.31         |
 | 2    | [LibFewShot ](https://github.com/RL-VIG/LibFewShot)          | ResNet12  | 59.453               | ——                   |
 
-以下为`log_train/.txt`及`.log`部分截图，具体训练过程可见压缩包
-
-Dynamic-Meta-filter - *mini*ImageNet (5,1)
-
-![image-20240705202327819](C:\Users\ZYXin\AppData\Roaming\Typora\typora-user-images\image-20240705202327819.png)
-
-Dynamic-Meta-filter - *mini*ImageNet (5,5)
-
-![image-20240705202420660](C:\Users\ZYXin\AppData\Roaming\Typora\typora-user-images\image-20240705202420660.png)
-
-LibFewShot  - *mini*ImageNet (5,1)
-
-![image-20240705230908221](C:\Users\ZYXin\AppData\Roaming\Typora\typora-user-images\image-20240705230908221.png)
+具体训练过程见/log
